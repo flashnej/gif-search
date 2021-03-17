@@ -7,8 +7,8 @@ const HomeContainer = (props) => {
         setSearch(value.currentTarget.value)
     }
 
-    var apiKey = "vmxF6uT91rPIzmbTbByyv69UzZljwQI9"
-    var apiURL = "https://api.giphy.com/v1/gifs/trending?api_key=vmxF6uT91rPIzmbTbByyv69UzZljwQI9&limit=25&rating=r"
+    var apiKey = process.env.REACT_APP_apiKey
+    var apiURL = `https://api.giphy.com/v1/gifs/trending?api_key=${apiKey}&limit=25&rating=r`
     const onSubmit = (value) => {
         value.preventDefault()
         fetch(apiURL)
