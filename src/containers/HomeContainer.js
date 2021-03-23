@@ -19,7 +19,12 @@ const HomeContainer = (props) => {
         value.preventDefault()
         fetch(apiURL)
         .then((response) => {
-            return response.json()
+            if (response.ok) {
+                return response.json()
+            }
+            else {
+                debugger
+            }
         })
         .then((response) => {
             setGifs(response.data)
@@ -34,10 +39,9 @@ const HomeContainer = (props) => {
         value.preventDefault()
         if (value.currentTarget.id === "+") {
             setFeaturedTile(featuredTile + 1)
-        } else if (value.currentTarget.id === "-")
-            if (featuredTile !== 0 ) {
-                setFeaturedTile(featuredTile - 1)
-            }
+        } else if (value.currentTarget.id === "-") {
+            setFeaturedTile(featuredTile - 1)
+        }
     }
 
     let gifTiles = []
@@ -70,7 +74,7 @@ const HomeContainer = (props) => {
                     <form>
                         <label>Search: </label>
                         <input type="text" id="search" name="search" onChange = {handleChange} ></input>
-                        <Button onClick = {onSubmit}> Submit</Button>
+                        <button onClick = {onSubmit}> Submit</button>
                     </form>
                 </Row>
                 <Row>
