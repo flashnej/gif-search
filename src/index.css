@@ -16,3 +16,32 @@ img {
   max-width: 100%;  
   height: auto;  
   }  
+
+  .search {
+    margin: auto;
+    width: auto;
+    padding: 10px;
+  }
+  
+  .application {
+    z-index: 9999; 
+    width: 100%; 
+    height: 100%; 
+    position: absolute; 
+    top: 0; 
+    left: 0; 
+    background-color: brown;
+  }
+
+  .primaryTile {
+    border: 5px solid red;
+  }
+  .primaryTile img {
+    width: 500%;
+    height: auto;
+  }
+
+  .secondaryTile img {
+    width: 10%;
+    height: auto;
+  }

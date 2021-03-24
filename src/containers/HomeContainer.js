@@ -3,7 +3,7 @@ import GifTile from "../tiles/GifTile"
 import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
-import Button from 'react-bootstrap/Button'
+// import Button from 'react-bootstrap/Button'
 
 
 const HomeContainer = (props) => {
@@ -52,13 +52,23 @@ const HomeContainer = (props) => {
         </Col>
         )
         for (let i=0; i<3; i++) {
-            gifTiles.push(
-            <Col>
-                <GifTile
-                    key = {gifs[featuredTile + i]["id"]}
-                    url = {gifs[featuredTile + i]["images"]["downsized"]["url"]}
-                />
-            </Col>)
+            if(gifTiles.length === 2) {
+                gifTiles.push(
+                    <Col className="primaryTile">
+                        <GifTile
+                            key = {gifs[featuredTile + i]["id"]}
+                            url = {gifs[featuredTile + i]["images"]["downsized"]["url"]}
+                        />
+                    </Col>)       
+            } else (
+                gifTiles.push(
+                    <Col className ="secondaryTile">
+                        <GifTile
+                            key = {gifs[featuredTile + i]["id"]}
+                            url = {gifs[featuredTile + i]["images"]["downsized"]["url"]}
+                        />
+                    </Col>)
+            )
         }
         gifTiles.push(
             <Col>
@@ -68,14 +78,16 @@ const HomeContainer = (props) => {
     }
 
     return (
-        <div>
+        <div className="application">
             <Container fluid>
                 <Row>
-                    <form>
-                        <label>Search: </label>
-                        <input type="text" id="search" name="search" onChange = {handleChange} ></input>
-                        <button onClick = {onSubmit}> Submit</button>
-                    </form>
+                    <div className="search">
+                        <form>
+                            <label>Search: </label>
+                            <input type="text" id="search" name="search" onChange = {handleChange} ></input>
+                            <button onClick = {onSubmit}> Submit</button>
+                        </form>
+                    </div>
                 </Row>
                 <Row>
                     {gifTiles}
