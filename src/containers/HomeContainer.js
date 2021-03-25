@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import GifTile from "../tiles/GifTile"
 import Container from 'react-bootstrap/Container'
+import Form from 'react-bootstrap/Form'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 // import Button from 'react-bootstrap/Button'
@@ -10,6 +11,7 @@ const HomeContainer = (props) => {
     const [search, setSearch] = useState("")
     const [gifs, setGifs] = useState([])
     const [featuredTile, setFeaturedTile] = useState(0)
+    const [darkMode, setDarkMode] = useState('lightApp')
 
 
     var apiKey = process.env.REACT_APP_apiKey
@@ -29,6 +31,15 @@ const HomeContainer = (props) => {
         .then((response) => {
             setGifs(response.data)
         })
+    }
+
+    const toggleDarkMode = (value) => {
+        value.preventDefault()
+        if (darkMode === 'lightApp') {
+            setDarkMode('darkApp')
+        } else {
+            setDarkMode('lightApp')
+        }
     }
 
     const handleChange = (value) => {
@@ -78,15 +89,17 @@ const HomeContainer = (props) => {
     }
 
     return (
-        <div className="application">
+        <div className={darkMode}>
             <Container fluid>
                 <Row>
                     <div className="search">
-                        <form>
+                        <Form>
+                            <label>Dark Mode:</label>
+                            <Form.Switch type="switch" id="custom-switch" onClick = {toggleDarkMode}/>
                             <label>Search: </label>
                             <input type="text" id="search" name="search" onChange = {handleChange} ></input>
                             <button onClick = {onSubmit}> Submit</button>
-                        </form>
+                        </Form>
                     </div>
                 </Row>
                 <Row>
