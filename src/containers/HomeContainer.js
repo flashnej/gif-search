@@ -12,6 +12,7 @@ const HomeContainer = (props) => {
     const [gifs, setGifs] = useState([])
     const [featuredTile, setFeaturedTile] = useState(0)
     const [darkMode, setDarkMode] = useState('lightApp')
+    console.log(featuredTile)
 
 
     var apiKey = process.env.REACT_APP_apiKey
@@ -49,9 +50,17 @@ const HomeContainer = (props) => {
     const add = (value) => {
         value.preventDefault()
         if (value.currentTarget.id === "+") {
-            setFeaturedTile(featuredTile + 1)
+            if (featuredTile >= 47) {
+                setFeaturedTile(0)
+            } else {
+                setFeaturedTile(featuredTile + 1)
+            }
         } else if (value.currentTarget.id === "-") {
-            setFeaturedTile(featuredTile - 1)
+            if (featuredTile <= 0) {
+                setFeaturedTile(47)
+            } else {
+                setFeaturedTile(featuredTile - 1)
+            }
         }
     }
 
