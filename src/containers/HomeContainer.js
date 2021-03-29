@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import GifTile from "../tiles/GifTile"
 import Container from 'react-bootstrap/Container'
-import Form from 'react-bootstrap/Form'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 // import Button from 'react-bootstrap/Button'
@@ -34,7 +33,7 @@ const HomeContainer = (props) => {
     }
 
     const toggleDarkMode = (value) => {
-        value.preventDefault()
+        value.persist()
         if (darkMode === 'lightApp') {
             setDarkMode('darkApp')
         } else {
@@ -90,25 +89,26 @@ const HomeContainer = (props) => {
 
     return (
         <div className={darkMode}>
-            <Container fluid>
-                <Row>
-                    <Form>
-                        <label>Dark Mode:</label>
-                        <Form.Switch type="switch" id="custom-switch" onClick = {toggleDarkMode}/>
-                    </Form>
-                </Row>
-                <Row>
-                    <div className="search">
-                        <Form>
-                            <label>Search: </label>
-                            <input type="text" id="search" name="search" onChange = {handleChange} ></input>
-                            <button onClick = {onSubmit}> Submit</button>
-                        </Form>
-                    </div>
-                </Row>
-                <Row>
-                    {gifTiles}
-                </Row>
+            <Container>
+            <Row>
+                <form>
+                    <label>Dark Mode:
+                        <input type="checkbox" className="fornm-check-input" onChange={toggleDarkMode}></input>
+                    </label>
+                </form>
+            </Row>
+            <Row>
+                <div className="search">
+                    <form>
+                        <label>Search: </label>
+                        <input type="text" id="search" name="search" onChange = {handleChange} ></input>
+                        <button onClick = {onSubmit}> Submit</button>
+                    </form>
+                </div>
+            </Row>
+            <Row>
+                {gifTiles}
+            </Row>
             </Container>
         </div>
     );
