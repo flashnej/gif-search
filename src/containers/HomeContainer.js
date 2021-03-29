@@ -92,10 +92,14 @@ const HomeContainer = (props) => {
         <div className={darkMode}>
             <Container fluid>
                 <Row>
+                    <Form>
+                        <label>Dark Mode:</label>
+                        <Form.Switch type="switch" id="custom-switch" onClick = {toggleDarkMode}/>
+                    </Form>
+                </Row>
+                <Row>
                     <div className="search">
                         <Form>
-                            <label>Dark Mode:</label>
-                            <Form.Switch type="switch" id="custom-switch" onClick = {toggleDarkMode}/>
                             <label>Search: </label>
                             <input type="text" id="search" name="search" onChange = {handleChange} ></input>
                             <button onClick = {onSubmit}> Submit</button>
