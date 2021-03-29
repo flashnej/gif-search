@@ -3,7 +3,6 @@ import GifTile from "../tiles/GifTile"
 import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
-// import Button from 'react-bootstrap/Button'
 
 
 const HomeContainer = (props) => {
@@ -11,6 +10,7 @@ const HomeContainer = (props) => {
     const [gifs, setGifs] = useState([])
     const [featuredTile, setFeaturedTile] = useState(0)
     const [darkMode, setDarkMode] = useState('lightApp')
+    console.log(featuredTile)
 
 
     var apiKey = process.env.REACT_APP_apiKey
@@ -48,38 +48,66 @@ const HomeContainer = (props) => {
     const add = (value) => {
         value.preventDefault()
         if (value.currentTarget.id === "+") {
-            setFeaturedTile(featuredTile + 1)
+            // NEED TO GET THE EDGE NUMBERS PROGRAMATICALLY
+            if (featuredTile >= gifs.length - 1) {
+                setFeaturedTile(0)
+            } else {
+                setFeaturedTile(featuredTile + 1)
+            }
         } else if (value.currentTarget.id === "-") {
-            setFeaturedTile(featuredTile - 1)
+            if (featuredTile <= 0) {
+                setFeaturedTile(gifs.length - 1)
+            } else {
+                setFeaturedTile(featuredTile - 1)
+            }
         }
     }
 
     let gifTiles = []
     if (gifs.length !== 0) {
-        gifTiles.push(
-        <Col>
-            <button onClick = {add} id="-">&lt;-</button>
-        </Col>
-        )
-        for (let i=0; i<3; i++) {
-            if(gifTiles.length === 2) {
-                gifTiles.push(
-                    <Col className="primaryTile">
-                        <GifTile
-                            key = {gifs[featuredTile + i]["id"]}
-                            url = {gifs[featuredTile + i]["images"]["downsized"]["url"]}
-                        />
-                    </Col>)       
-            } else (
-                gifTiles.push(
-                    <Col className ="secondaryTile">
-                        <GifTile
-                            key = {gifs[featuredTile + i]["id"]}
-                            url = {gifs[featuredTile + i]["images"]["downsized"]["url"]}
-                        />
-                    </Col>)
-            )
+
+        let prevTileIndex
+        let nextTileIndex
+        if (featuredTile === 0) {
+            prevTileIndex = gifs.length - 1
+            nextTileIndex = 1
+        } else if (featuredTile === gifs.length - 1) {
+            prevTileIndex = gifs.length - 2
+            nextTileIndex = 0
+        } else {
+            prevTileIndex = featuredTile - 1
+            nextTileIndex = featuredTile + 1
         }
+
+        gifTiles.push(
+            <Col>
+                <button onClick = {add} id="-">&lt;-</button>
+            </Col>
+        )
+        gifTiles.push(
+            <Col className="secondaryTile">
+                <GifTile
+                    key = {gifs[prevTileIndex]["id"]}
+                    url = {gifs[prevTileIndex]["images"]["downsized"]["url"]}
+                />
+            </Col>
+        )
+        gifTiles.push(
+            <Col className="primaryTile">
+                <GifTile
+                    key = {gifs[featuredTile]["id"]}
+                    url = {gifs[featuredTile]["images"]["downsized"]["url"]}
+                />
+            </Col>
+        )
+        gifTiles.push(
+            <Col className="secondaryTile">
+                <GifTile
+                    key = {gifs[nextTileIndex]["id"]}
+                    url = {gifs[nextTileIndex]["images"]["downsized"]["url"]}
+                />
+            </Col>
+        )
         gifTiles.push(
             <Col>
                 <button onClick = {add} id="+">-&gt;</button>
